@@ -13,6 +13,8 @@ const Home = () => {
       name: "Crystal Wedding Tiara",
       price: 299.99,
       stock: 10,
+      description:
+        "Elegant crystal-encrusted tiara featuring delicate floral patterns. Perfect for adding a royal touch to your wedding day look. Made with premium quality crystals and silver-plated metal.",
       image:
         "https://images.unsplash.com/photo-1597223557154-721c1cecc4b0?w=500",
       category: "wedding",

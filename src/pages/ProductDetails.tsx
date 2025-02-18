@@ -1,24 +1,22 @@
 import { useParams } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 
-interface ProductImage {
-  url: string;
-  alt: string;
-}
-
-const ProductDetails = () => {
-  const { id } = useParams();
-  const { addToCart } = useCart();
-
-  // In a real app, you would fetch this data from an API
-  // This is mock data for demonstration
-  const product = {
-    id: id,
+const products = [
+  {
+    id: "1",
     name: "Crystal Wedding Tiara",
     price: 299.99,
     stock: 10,
     description:
-      "Beautiful crystal tiara perfect for your special day. Made with high-quality materials and intricate detailing.",
+      "Elegant crystal-encrusted tiara featuring delicate floral patterns. Perfect for adding a royal touch to your wedding day look. Made with premium quality crystals and silver-plated metal.",
+    details: [
+      "Premium quality Austrian crystals",
+      "Silver-plated metal base",
+      "Adjustable fit with hidden combs",
+      "Handcrafted with attention to detail",
+      "Comes in a luxury gift box",
+      "Professional cleaning recommended",
+    ],
     images: [
       {
         url: "https://images.unsplash.com/photo-1597223557154-721c1cecc4b0?w=500",
@@ -37,11 +35,19 @@ const ProductDetails = () => {
         alt: "Detail view",
       },
     ],
-  };
+  },
+  // Add more products here with their details and multiple images
+];
+
+const ProductDetails = () => {
+  const { id } = useParams();
+  const { addToCart } = useCart();
+
+  const product = products.find((p) => p.id === id) || products[0]; // Fallback to first product if not found
 
   const handleAddToCart = () => {
     addToCart({
-      id: product.id!,
+      id: product.id,
       name: product.name,
       price: product.price,
       image: product.images[0].url,
@@ -74,8 +80,28 @@ const ProductDetails = () => {
             <p className="text-2xl font-semibold text-gray-900">
               EGP {product.price.toFixed(2)}
             </p>
-            <p className="text-gray-600">{product.description}</p>
-            <p className="text-sm text-gray-600">{product.stock} in stock</p>
+
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-lg font-semibold mb-2">Description</h3>
+                <p className="text-gray-600">{product.description}</p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold mb-2">Product Details</h3>
+                <ul className="list-disc list-inside space-y-1 text-gray-600">
+                  {product.details.map((detail, index) => (
+                    <li key={index}>{detail}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <p className="text-sm text-gray-600 font-semibold">
+                {product.stock > 0
+                  ? `${product.stock} in stock`
+                  : "Out of stock"}
+              </p>
+            </div>
 
             <button
               onClick={handleAddToCart}
