@@ -73,7 +73,7 @@ export default function ChatAssistant() {
   };
 
   return (
-    <div className="flex flex-col h-[500px] w-full max-w-md mx-auto bg-white rounded-lg shadow-lg p-4">
+    <div className="flex flex-col h-[600px] w-[400px] bg-white rounded-lg shadow-xl p-4 border border-gray-200">
       <ScrollArea className="flex-1 p-4 mb-4">
         <div className="space-y-4">
           {messages.map((message, index) => (
