@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { useCart } from "../context/CartContext";
 
 interface CheckoutForm {
   name: string;
@@ -20,24 +21,43 @@ const Checkout = () => {
   } = useForm<CheckoutForm>();
   const paymentMethod = watch("paymentMethod");
 
+  const { cartItems } = useCart();
+
   const onSubmit = async (data: CheckoutForm) => {
-    // Send data to WhatsApp/Email
-    const message = `New Order:\n\nName: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone}\nAddress: ${data.address}\nPayment Method: ${data.paymentMethod}`;
+    // Calculate total
+    const total = cartItems.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0,
+    );
 
-    // Example: Send to WhatsApp (you'll need to replace the phone number)
-    window.open(`https://wa.me/1234567890?text=${encodeURIComponent(message)}`);
+    // Create order message
+    const message =
+      `🛍️ New Order Details:\n\n` +
+      `👤 Customer Information:\n` +
+      `Name: ${data.name}\n` +
+      `Email: ${data.email}\n` +
+      `Phone: ${data.phone}\n` +
+      `Address: ${data.address}\n\n` +
+      `🛒 Order Items:\n` +
+      cartItems
+        .map(
+          (item) =>
+            `- ${item.name} (x${item.quantity}) - EGP ${(item.price * item.quantity).toFixed(2)}`,
+        )
+        .join("\n") +
+      `\n\n💰 Total Amount: EGP ${total.toFixed(2)}\n` +
+      `💳 Payment Method: ${data.paymentMethod}`;
 
-    // Send to backend/Postman
-    try {
-      const response = await fetch("YOUR_API_ENDPOINT", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      // Handle response
-    } catch (error) {
-      console.error("Error:", error);
-    }
+    // Send to WhatsApp
+    window.open(
+      `https://wa.me/201158932877?text=${encodeURIComponent(message)}`,
+    );
+
+    // Send email using mailto
+    const emailSubject = "New Order from Wedding Shop";
+    window.open(
+      `mailto:matef4202@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(message)}`,
+    );
   };
 
   return (
