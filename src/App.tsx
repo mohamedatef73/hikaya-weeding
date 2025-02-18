@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import FloatingChat from "./components/FloatingChat";
 import { useRoutes, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
@@ -19,6 +20,7 @@ function App() {
           <Route path="/product/:id" element={<ProductDetails />} />
         </Routes>
         {import.meta.env.VITE_TEMPO === "true" && useRoutes(routes)}
+        <FloatingChat />
       </>
     </Suspense>
   );
