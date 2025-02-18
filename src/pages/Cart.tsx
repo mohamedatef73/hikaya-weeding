@@ -1,17 +1,8 @@
 import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
 const Cart = () => {
-  const cartItems = [
-    // Sample cart items
-    {
-      id: "1",
-      name: "Wedding Tiara",
-      price: 299.99,
-      quantity: 1,
-      image:
-        "https://images.unsplash.com/photo-1597223557154-721c1cecc4b0?w=500",
-    },
-  ];
+  const { cartItems, removeFromCart } = useCart();
 
   const total = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
