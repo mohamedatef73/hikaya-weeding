@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useCart } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 interface CheckoutForm {
   name: string;
@@ -21,7 +22,8 @@ const Checkout = () => {
   } = useForm<CheckoutForm>();
   const paymentMethod = watch("paymentMethod");
 
-  const { cartItems } = useCart();
+  const { cartItems, clearCart } = useCart();
+  const navigate = useNavigate();
 
   const onSubmit = async (data: CheckoutForm) => {
     // Calculate total
@@ -58,6 +60,10 @@ const Checkout = () => {
     window.open(
       `mailto:matef4202@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(message)}`,
     );
+
+    // Clear cart and navigate home
+    clearCart();
+    navigate("/");
   };
 
   return (
