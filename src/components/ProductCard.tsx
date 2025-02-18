@@ -1,4 +1,5 @@
 import { useCart } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 interface ProductCardProps {
   id: string;
@@ -18,15 +19,20 @@ const ProductCard = ({
   onAddToCart,
 }: ProductCardProps) => {
   const { addToCart } = useCart();
+  const navigate = useNavigate();
   return (
-    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105">
+    <div
+      onClick={() => navigate(`/product/${id}`)}
+      className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 cursor-pointer"
+    >
       <img className="w-full h-48 object-cover" src={image} alt={name} />
       <div className="p-4">
         <h5 className="text-xl font-semibold mb-2">{name}</h5>
         <p className="text-gray-700 mb-2">EGP {price.toFixed(2)}</p>
         <p className="text-sm text-gray-600 mb-4">{stock} in stock</p>
         <button
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
             addToCart({ id, name, price, image });
           }}
           disabled={stock === 0}
