@@ -5,9 +5,9 @@ import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import ProductDetails from "./pages/ProductDetails";
-import About from "./pages/About.tsx";
-import Contact from "./pages/Contact.tsx";
-import Categories from "./pages/Categories.tsx";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import Categories from "./pages/Categories";
 import Navbar from "./components/layout/Navbar";
 import routes from "tempo-routes";
 
