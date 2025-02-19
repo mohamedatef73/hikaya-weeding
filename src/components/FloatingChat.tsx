@@ -7,21 +7,21 @@ export default function FloatingChat() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="fixed bottom-4 right-4 z-50">
+    <div className="fixed bottom-8 right-8 z-50">
       {isOpen && (
-        <div className="absolute bottom-16 right-0 mb-2">
+        <div className="absolute bottom-20 right-0 mb-2">
           <ChatAssistant />
         </div>
       )}
       <Button
         onClick={() => setIsOpen(!isOpen)}
         size="icon"
-        className="h-12 w-12 rounded-full shadow-lg"
+        className="h-16 w-16 rounded-full shadow-lg bg-primary hover:bg-primary/90 transition-all duration-200"
       >
         {isOpen ? (
-          <X className="h-6 w-6" />
+          <X className="h-8 w-8" />
         ) : (
-          <MessageCircle className="h-6 w-6" />
+          <MessageCircle className="h-8 w-8" />
         )}
       </Button>
     </div>
